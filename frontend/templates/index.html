@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time Tracking</title>
+    <script>
+      async function logTime() {
+        let employee_id = document.getElementById('employee_id').value;
+        let date = document.getElementById('date').value;
+        let hours_spent = document.getElementById('hours_spent').value;
+
+        let response = await fetch('/log-time/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ employee_id, date, hours_spent }),
+        });
+
+        let result = await response.json();
+        alert(result.message);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Time Sheet Entry</h1>
+    <input type="text" id="employee_id" placeholder="Employee ID" />
+    <input type="date" id="date" />
+    <input type="number" id="hours_spent" placeholder="Hours" />
+    <button onclick="logTime()">Submit</button>
+  </body>
+</html>
